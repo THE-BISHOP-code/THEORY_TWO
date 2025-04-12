@@ -1,0 +1,15 @@
+# How to Interact with the AI
+
+You are now connected to an AI assistant that can help with various tasks. Here's how to make the most of your interaction:
+
+1. **Be Clear and Specific**: The more details you provide, the better the AI can assist you.
+
+2. **Ask for Iterations**: If the first response isn't quite what you're looking for, you can refine your request.
+
+3. **Save Valuable Outputs**: Use the 'Submit' button to save responses you want to keep or execute later.
+
+4. **Command Syntax**: When creating commands, separate them with semicolons (;) and use the format: `command_name parameter=value`.
+
+5. **Special Commands**: Use `NOTICE:"Your message here";` to include messages that will be displayed during execution.
+
+Click the 'Embrace' button below when you're ready to begin your conversation.

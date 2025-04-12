@@ -1,0 +1,647 @@
+# BISHOP Discord Bot Commands
+
+This document provides a comprehensive list of all commands available in the BISHOP Discord bot, along with their parameters and usage examples.
+
+## Free Commands
+
+These commands are available to all users with appropriate Discord permissions.
+
+### Channel Management
+
+#### 1. channel_manager_command
+Comprehensive channel management with multiple operations.
+
+**Parameters:**
+- operation: The operation to perform (create, delete, edit, move, clone, sync, lock, unlock, slowmode)
+- channel: Channel name or ID to operate on
+- category: Category name or ID for the channel
+- name: New name for the channel
+- topic: New topic for the channel
+- position: New position for the channel
+- permissions: JSON string of permission overwrites
+- slowmode: Slowmode delay in seconds
+- reason: Reason for the audit log
+
+**Example:**
+```json
+{
+  "operation": "create",
+  "name": "announcements",
+  "category": "Important Channels",
+  "topic": "Server announcements and important information",
+  "slowmode": "10"
+}
+```
+
+#### 2. channel_reorder_command
+Reorders channels in a category or the entire server.
+
+**Parameters:**
+- channels: Comma-separated list of channel names or IDs in desired order
+- category: Category name or ID to reorder channels within
+- alphabetical: If "true", sorts channels alphabetically
+- reverse: If "true", reverses the order
+
+**Example:**
+```json
+{
+  "category": "General",
+  "alphabetical": "true",
+  "reverse": "false"
+}
+```
+
+#### 3. channel_create_command
+Creates a new channel with customizable settings.
+
+**Parameters:**
+- name: Name for the new channel
+- type: Channel type (text, voice, category)
+- category: Category name or ID to place the channel in
+- topic: Topic for the text channel
+- position: Position for the channel
+- permissions: JSON string of permission overwrites
+- slowmode: Slowmode delay in seconds for text channels
+- reason: Reason for the audit log
+
+**Example:**
+```json
+{
+  "name": "welcome",
+  "type": "text",
+  "category": "Information",
+  "topic": "Welcome to our server!",
+  "slowmode": "0"
+}
+```
+
+### Role Management
+
+#### 4. role_manager_command
+Comprehensive role management with multiple operations.
+
+**Parameters:**
+- operation: The operation to perform (create, delete, edit, assign, remove, info, list, color, hoist, mentionable)
+- role: Role name or ID to operate on
+- name: New name for the role
+- color: New color for the role (hex code)
+- hoist: Whether the role should be displayed separately (true/false)
+- mentionable: Whether the role should be mentionable (true/false)
+- permissions: JSON string of permission values
+- position: New position for the role
+- user: User ID or mention to assign/remove role from
+- reason: Reason for the audit log
+
+**Example:**
+```json
+{
+  "operation": "create",
+  "name": "Moderator",
+  "color": "#1ABC9C",
+  "hoist": "true",
+  "mentionable": "true",
+  "permissions": "{\"kick_members\": true, \"ban_members\": true, \"manage_messages\": true}"
+}
+```
+
+#### 5. role_reorder_command
+Reorders roles in the server.
+
+**Parameters:**
+- roles: Comma-separated list of role names or IDs in desired order
+- alphabetical: If "true", sorts roles alphabetically
+- reverse: If "true", reverses the order
+- above: Role name or ID to place roles above
+- below: Role name or ID to place roles below
+
+**Example:**
+```json
+{
+  "alphabetical": "true",
+  "reverse": "false",
+  "above": "Member"
+}
+```
+
+#### 6. role_create_command
+Creates a new role with customizable settings.
+
+**Parameters:**
+- name: Name for the new role
+- color: Color for the role (hex code)
+- hoist: Whether the role should be displayed separately (true/false)
+- mentionable: Whether the role should be mentionable (true/false)
+- permissions: JSON string of permission values
+- position: Position for the role
+- reason: Reason for the audit log
+
+**Example:**
+```json
+{
+  "name": "VIP",
+  "color": "#E91E63",
+  "hoist": "true",
+  "mentionable": "true"
+}
+```
+
+### Permission Management
+
+#### 7. permission_manager_command
+Manages permissions for roles and users in channels.
+
+**Parameters:**
+- operation: The operation to perform (view, set, clear, copy, sync)
+- channel: Channel name or ID to manage permissions for
+- target: Target role or user name/ID to manage permissions for
+- permissions: JSON string of permission values to set
+- allow: Comma-separated list of permissions to allow
+- deny: Comma-separated list of permissions to deny
+- neutral: Comma-separated list of permissions to set to neutral
+- source_channel: Source channel to copy permissions from
+- reason: Reason for the audit log
+
+**Example:**
+```json
+{
+  "operation": "set",
+  "channel": "announcements",
+  "target": "Member",
+  "allow": "read_messages,read_message_history",
+  "deny": "send_messages,add_reactions"
+}
+```
+
+### Category Management
+
+#### 8. category_manager_command
+Manages categories in the server.
+
+**Parameters:**
+- operation: The operation to perform (create, delete, rename, move, list, info)
+- category: Category name or ID to operate on
+- name: New name for the category
+- position: New position for the category
+- permissions: JSON string of permission overwrites
+- reason: Reason for the audit log
+
+**Example:**
+```json
+{
+  "operation": "create",
+  "name": "Information Channels",
+  "position": "0"
+}
+```
+
+### User Management
+
+#### 9. user_manager_command
+Manages user information and actions.
+
+**Parameters:**
+- operation: The operation to perform (info, roles, avatar, banner, activity, joined, created, nickname)
+- user: User ID, mention, or name to operate on
+- nickname: New nickname for the user
+- reason: Reason for the audit log
+
+**Example:**
+```json
+{
+  "operation": "info",
+  "user": "@username"
+}
+```
+
+### Server Management
+
+#### 10. server_info_command
+Displays information about the server.
+
+**Parameters:**
+- channel: Channel name or ID to send the info to
+- detailed: If "true", shows more detailed information
+
+**Example:**
+```json
+{
+  "channel": "bot-commands",
+  "detailed": "true"
+}
+```
+
+## Premium Commands
+
+These commands are available to users with premium roles.
+
+### Advanced Message Management
+
+#### 11. message_advanced_command
+Sends an advanced message with rich formatting options.
+
+**Parameters:**
+- channel: Channel name or ID to send the message to
+- content: The text content of the message
+- embed: If "true", sends as an embed
+- title: Title for the embed
+- description: Description for the embed
+- color: Color for the embed in hex format (#RRGGBB)
+- image: URL of an image to include
+- thumbnail: URL of a thumbnail to include
+- author: Author name for the embed
+- author_icon: URL of the author icon
+- footer: Footer text for the embed
+- footer_icon: URL of the footer icon
+- timestamp: If "true", includes current timestamp
+- fields: JSON string of fields to add (array of objects with name, value, inline)
+
+**Example:**
+```json
+{
+  "channel": "announcements",
+  "embed": "true",
+  "title": "Server Update",
+  "description": "We've added new channels and roles!",
+  "color": "#3498DB",
+  "timestamp": "true",
+  "fields": "[{\"name\": \"New Channels\", \"value\": \"#suggestions, #feedback\", \"inline\": true}, {\"name\": \"New Roles\", \"value\": \"VIP, Contributor\", \"inline\": true}]"
+}
+```
+
+### Reaction Roles
+
+#### 12. reaction_roles_command
+Creates or manages a reaction role message.
+
+**Parameters:**
+- action: The action to perform (create, add, remove, clear)
+- channel: Channel name or ID for the message
+- message_id: ID of an existing message to use
+- title: Title for the embed
+- description: Description for the embed
+- color: Color for the embed in hex format (#RRGGBB)
+- roles: JSON string of roles to add (array of objects with emoji, role, description)
+- unique: If "true", users can only have one role from this message
+
+**Example:**
+```json
+{
+  "action": "create",
+  "channel": "roles",
+  "title": "Server Roles",
+  "description": "React to get roles!",
+  "color": "#9B59B6",
+  "roles": "[{\"emoji\": \"🔴\", \"role\": \"Red Team\", \"description\": \"Join the Red Team\"}, {\"emoji\": \"🔵\", \"role\": \"Blue Team\", \"description\": \"Join the Blue Team\"}]",
+  "unique": "true"
+}
+```
+
+### Ticket System
+
+#### 13. ticket_system_command
+Creates or manages a ticket system.
+
+**Parameters:**
+- action: The action to perform (setup, config, reset)
+- channel: Channel name or ID for the ticket panel
+- category: Category name or ID for ticket channels
+- support_role: Role name or ID for support staff
+- title: Title for the ticket panel embed
+- description: Description for the ticket panel embed
+- color: Color for the embed in hex format (#RRGGBB)
+- button_text: Text for the ticket button
+- welcome_message: Message sent when a ticket is created
+- close_on_complete: If "true", closes ticket when marked as complete
+- log_channel: Channel name or ID for ticket logs
+- max_tickets: Maximum number of open tickets per user
+
+**Example:**
+```json
+{
+  "action": "setup",
+  "channel": "support",
+  "category": "Tickets",
+  "support_role": "Support Team",
+  "title": "Support Tickets",
+  "description": "Click the button below to create a support ticket.",
+  "button_text": "Create Ticket",
+  "welcome_message": "Thank you for creating a ticket. Support staff will be with you shortly.",
+  "close_on_complete": "true",
+  "log_channel": "ticket-logs",
+  "max_tickets": "1"
+}
+```
+
+## Additional Commands
+
+These commands provide additional functionality for specific use cases.
+
+### Moderation Commands
+
+#### 14. moderation_command
+Performs moderation actions on users.
+
+**Parameters:**
+- action: The action to perform (warn, mute, kick, ban, unban, timeout)
+- user: User ID, mention, or name to moderate
+- reason: Reason for the moderation action
+- duration: Duration for temporary actions (e.g., "1h", "1d", "7d")
+- delete_messages: If "true", deletes the user's messages (for ban)
+- notify: If "true", notifies the user of the action
+- log_channel: Channel name or ID to log the action
+
+**Example:**
+```json
+{
+  "action": "timeout",
+  "user": "@username",
+  "reason": "Spamming in chat",
+  "duration": "1h",
+  "notify": "true",
+  "log_channel": "mod-logs"
+}
+```
+
+### Scheduled Messages
+
+#### 15. schedule_message_command
+Schedules a message to be sent at a specific time.
+
+**Parameters:**
+- channel: Channel name or ID to send the message to
+- content: The text content of the message
+- embed: If "true", sends as an embed (with same embed options as message_advanced_command)
+- time: Time to send the message (ISO format or relative time like "1h", "tomorrow 9am")
+- repeat: If and how often to repeat the message (none, hourly, daily, weekly, monthly)
+- end_time: When to stop repeating the message (ISO format or relative time)
+
+**Example:**
+```json
+{
+  "channel": "announcements",
+  "content": "Don't forget our weekly meeting!",
+  "time": "tomorrow 9am",
+  "repeat": "weekly",
+  "end_time": "30d"
+}
+```
+
+### Poll Command
+
+#### 16. poll_command
+Creates an interactive poll.
+
+**Parameters:**
+- channel: Channel name or ID to send the poll to
+- question: The poll question
+- options: JSON array of poll options
+- duration: How long the poll should last (e.g., "1h", "1d")
+- anonymous: If "true", votes are anonymous
+- multiple_choice: If "true", users can select multiple options
+
+**Example:**
+```json
+{
+  "channel": "general",
+  "question": "What game should we play this weekend?",
+  "options": "[\"Minecraft\", \"Among Us\", \"Valorant\", \"Fortnite\"]",
+  "duration": "2d",
+  "multiple_choice": "false"
+}
+```
+
+### Welcome Message
+
+#### 17. welcome_message_command
+Configures the welcome message for new members.
+
+**Parameters:**
+- channel: Channel name or ID to send welcome messages to
+- message: The welcome message (can include placeholders like {user}, {server})
+- embed: If "true", sends as an embed (with same embed options as message_advanced_command)
+- dm: If "true", also sends a direct message to the new member
+- dm_message: The direct message to send (if different from the channel message)
+
+**Example:**
+```json
+{
+  "channel": "welcome",
+  "message": "Welcome to {server}, {user}! Please read the rules in #rules and introduce yourself in #introductions.",
+  "embed": "true",
+  "dm": "true",
+  "dm_message": "Thanks for joining {server}! If you have any questions, feel free to ask in #help."
+}
+```
+
+### Auto Role
+
+#### 18. auto_role_command
+Configures roles to be automatically assigned to new members.
+
+**Parameters:**
+- action: The action to perform (add, remove, list)
+- role: Role name or ID to automatically assign
+- delay: Delay before assigning the role in seconds
+- reason: Reason for the audit log
+
+**Example:**
+```json
+{
+  "action": "add",
+  "role": "Member",
+  "delay": "0"
+}
+```
+
+### Message Search
+
+#### 21. message_search_command
+Searches for messages in channels based on various criteria.
+
+**Parameters:**
+- channel: Channel name or ID to search in (defaults to current channel)
+- query: Text to search for in messages
+- user: User ID, mention, or name to filter messages by
+- has_image: If "true", only includes messages with images
+- has_file: If "true", only includes messages with files
+- has_embed: If "true", only includes messages with embeds
+- before: Only include messages before this date/time (ISO format or relative time)
+- after: Only include messages after this date/time (ISO format or relative time)
+- limit: Maximum number of messages to return (default: 25, max: 100)
+- output_channel: Channel name or ID to send results to (defaults to current channel)
+
+**Example:**
+```json
+{
+  "channel": "general",
+  "query": "important announcement",
+  "user": "@admin",
+  "has_embed": "true",
+  "after": "7d",
+  "limit": "10"
+}
+```
+
+### Webhook Management
+
+#### 22. webhook_manager_command
+Manages webhooks and sends messages through them.
+
+**Parameters:**
+- operation: The operation to perform (create, delete, edit, list, send)
+- channel: Channel name or ID to operate on
+- webhook_id: Webhook ID to operate on
+- webhook_url: Webhook URL to operate on
+- name: Name for the webhook
+- avatar_url: Avatar URL for the webhook
+- content: Content of the message to send
+- username: Username to use when sending a message
+- avatar_override: Avatar URL to use when sending a message
+- embed: If "true", sends an embed
+- embed_json: JSON string of the embed to send
+- thread: Thread name or ID to send the message to
+- reason: Reason for the audit log
+
+**Example:**
+```json
+{
+  "operation": "create",
+  "channel": "announcements",
+  "name": "News Bot",
+  "avatar_url": "https://example.com/avatar.png"
+}
+```
+
+### Thread Management
+
+#### 23. thread_manager_command
+Manages threads in text channels.
+
+**Parameters:**
+- operation: The operation to perform (create, delete, edit, archive, unarchive, list, info, add, remove)
+- channel: Channel name or ID where the thread is or will be created
+- thread: Thread name or ID to operate on
+- name: Name for the thread
+- type: Type of thread to create (public, private, news, forum)
+- message: Message ID to create a thread from
+- auto_archive: Auto-archive duration in minutes (60, 1440, 4320, 10080)
+- slowmode: Slowmode delay in seconds
+- locked: Whether the thread should be locked (true/false)
+- invitable: Whether non-moderators can add users to the thread (true/false)
+- user: User ID or mention to add/remove from the thread
+- reason: Reason for the audit log
+
+**Example:**
+```json
+{
+  "operation": "create",
+  "channel": "general",
+  "name": "Project Discussion",
+  "type": "public",
+  "auto_archive": "1440"
+}
+```
+
+### Emoji and Sticker Management
+
+#### 24. emoji_manager_command
+Manages emojis and stickers in the server.
+
+**Parameters:**
+- operation: The operation to perform (create_emoji, delete_emoji, edit_emoji, list_emojis, create_sticker, delete_sticker, edit_sticker, list_stickers)
+- name: Name for the emoji or sticker
+- url: URL of the image to use for the emoji or sticker
+- emoji: Emoji name or ID to operate on
+- sticker: Sticker name or ID to operate on
+- description: Description for the sticker
+- emoji_type: Type of sticker (standard, guild, nitro)
+- roles: Comma-separated list of role names or IDs that can use the emoji
+- reason: Reason for the audit log
+
+**Example:**
+```json
+{
+  "operation": "create_emoji",
+  "name": "happy",
+  "url": "https://example.com/happy.png",
+  "roles": "Member,VIP"
+}
+```
+
+### Verification System
+
+#### 19. verification_command
+Sets up a verification system for new members.
+
+**Parameters:**
+- action: The action to perform (setup, config, reset)
+- channel: Channel name or ID for the verification message
+- role: Role name or ID to assign after verification
+- type: Verification type (button, reaction, captcha)
+- message: The verification message
+- embed: If "true", sends as an embed (with same embed options as message_advanced_command)
+- button_text: Text for the verification button (if type is button)
+- emoji: Emoji for the verification reaction (if type is reaction)
+- log_channel: Channel name or ID to log verifications
+
+**Example:**
+```json
+{
+  "action": "setup",
+  "channel": "verification",
+  "role": "Verified",
+  "type": "button",
+  "message": "Click the button below to verify yourself and gain access to the server.",
+  "embed": "true",
+  "button_text": "Verify",
+  "log_channel": "verification-logs"
+}
+```
+
+### Starboard
+
+#### 20. starboard_command
+Sets up a starboard to highlight popular messages.
+
+**Parameters:**
+- action: The action to perform (setup, config, reset)
+- channel: Channel name or ID for the starboard
+- emoji: Emoji to use for starring messages
+- threshold: Number of reactions required to add a message to the starboard
+- self_star: If "true", allows users to star their own messages
+- nsfw: If "true", includes messages from NSFW channels
+
+**Example:**
+```json
+{
+  "action": "setup",
+  "channel": "starboard",
+  "emoji": "⭐",
+  "threshold": "3",
+  "self_star": "false",
+  "nsfw": "false"
+}
+```
+
+## Command Execution Context
+
+All commands are designed to be context parameter-based for AI usage. This means:
+
+1. Commands accept detailed parameter objects with explicit values
+2. Parameters can be combined in flexible ways to handle complex operations
+3. Commands provide detailed feedback about their execution
+4. Error handling is robust with clear error messages
+5. Commands can be chained together for complex workflows
+
+When using these commands through the AI interface, provide as much detail as possible in the parameters to ensure the command executes correctly.
+
+## Parameter Formats
+
+- **Text values**: Simple strings (e.g., "General", "Welcome to our server!")
+- **Boolean values**: Strings "true" or "false" (e.g., "embed": "true")
+- **Numeric values**: Strings containing numbers (e.g., "position": "0", "slowmode": "10")
+- **JSON values**: Stringified JSON objects or arrays (e.g., "permissions": "{\"read_messages\": true}")
+- **User/Role/Channel references**: Can be names, IDs, or mentions (e.g., "user": "@username", "role": "Moderator", "channel": "general")
+- **Colors**: Hex color codes (e.g., "color": "#3498DB")
+- **Time values**: ISO format or relative time (e.g., "time": "2023-04-01T12:00:00Z" or "time": "tomorrow 9am")
+- **Duration values**: Simple duration strings (e.g., "duration": "1h", "duration": "7d")

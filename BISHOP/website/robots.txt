@@ -1,0 +1,16 @@
+# BISHOP Website - robots.txt
+# Allow all search engines to index the site, except for specific directories
+
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /includes/
+Disallow: /db/
+Disallow: /errors/
+Disallow: /assets/js/
+Disallow: /assets/css/
+Disallow: /login.php
+Disallow: /logout.php
+
+# Sitemap location
+Sitemap: https://osiris.wuaze.com/sitemap.xml

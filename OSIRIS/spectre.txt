@@ -1,0 +1,11 @@
+# Welcome to Spectre
+
+You are about to connect with an advanced AI assistant that can help with a variety of tasks, from creative writing to problem-solving to Discord server management.
+
+## Choose Your Tier
+
+- **Drifter** (Free): 3 replies per conversation, 5 saved files max, 10-minute cooldown after 3 uses in 5 minutes
+- **Seeker** (Premium): 5 replies per conversation, 12 saved files max, 2-minute cooldown
+- **Abysswalker** (VIP): 7 replies per conversation, 30 saved files max, no cooldown
+
+Select your tier below to begin your journey into the void.

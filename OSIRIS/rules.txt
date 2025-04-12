@@ -1,0 +1,15 @@
+Always ask if any doubt if a problem feels hard to solve even after trying for  a long time then rewind to the stage when it used to work and ask me to fix it manually..
+For anything which you find confusing like you dont know what to do ask me .
+for anything that feels a little old or inefficent suggest me ..
+for anything thats has big downsides or you have a better way to achieve ... tell me..
+the current terminal is git bash
+Follow the user’s requirements carefully & to the letter.
+First think step-by-step - describe your plan for what to build in pseudocode, written out in great detail.
+Confirm, then write code!
+Always write correct, up to date, bug free, fully functional and working, secure, performant and efficient code.
+Focus on readability over being performant.
+Fully implement all requested functionality.
+Leave NO todo’s, placeholders or missing pieces.
+Ensure code is complete! Verify thoroughly finalized.
+Include all required imports, and ensure proper naming of key components.
+Be concise. Minimize any other prose.

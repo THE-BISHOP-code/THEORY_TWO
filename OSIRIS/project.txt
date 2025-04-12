@@ -1,0 +1,376 @@
+Project Overview
+Develop a Discord bot using Python with the discord.py library (. The bot will have several core functionalities managed through different Python files and cogs, interact with the GPT-4 API (via the gpt4f library), manage user data and files, and provide different features based on user tiers.
+
+General Instructions & Constraints:
+
+Code Completeness: Provide full, runnable Python code for each module.
+
+Clarifications: If any requirement is unclear or seems ambiguous, please ask for clarification before proceeding. You are also encouraged to explain any assumptions made.
+
+Refactoring: Feel free to refactor the code for better organization, efficiency, or readability, as long as all functional requirements are met.
+
+File Size Limit: If any single Python file exceeds 700 lines of code, please split it into logical sub-modules or helper files.
+
+Loading Indicators: When performing actions that might take time (e.g., API calls, file processing), display dynamic loading messages to the user.
+
+Show random lines/thoughts loaded from a random.txt file at the bottom of loading messages.
+
+Message Management: Each new response/message sent by the bot should replace/delete its previous message in that interaction context (e.g., after a command is used).
+
+Environment Variables: Use environment variables (.env file) to store sensitive information like the bot token, owner ID, specific channel IDs, and API keys.
+
+Maintainece mode: for each cog there to be a maintainece option , which is for owner only which when enabled the said cog to stop aceppting new commands from people ... but continue the poeple who are under usage... but after 15 minutes it to kill every command working under that cog and tell the user that all current commands of the cog has stopped....
+File Dependencies: The bot relies on several text files (.txt) for static content and prompts. Ensure the code correctly reads from:
+
+random.txt
+
+bot.txt
+
+credits.txt
+
+about.txt
+
+spectre.txt
+
+user_instructor.txt
+
+gpt_instructor.txt
+
+temp.txt
+
+forever.txt
+
+forever1.txt
+
+undo.txt
+
+Error Handling: Implement robust error handling for file operations, API calls, and user interactions.
+
+main.py - Core Bot Logic
+Functionality:
+
+Initialization & Login:
+
+Read the Discord bot token from the .env file.
+
+Log in to Discord using the token.
+
+Cog Loading:
+
+Automatically detect and load all cogs (Python files) from the ./cogs/ directory upon startup.
+
+Owner-Only Cog Management Command (/cog):
+
+Implement a slash command /cog accessible only to the bot owner (ID stored in .env).
+
+This command should feature a dropdown menu with the following options:
+
+Load: Load a specific cog.
+
+Unload: Unload a specific cog.
+
+Reload: Reload a specific cog (or all cogs).
+
+List: Display a list of all loaded cogs.
+
+Dynamic Reload: (Clarification needed: Does this mean automatically reloading cogs if their files change on disk?)
+
+On Mention Response:
+
+When the bot is mentioned (@bot-name), it should:
+
+Display the content of bot.txt.
+
+Display a set of interactive buttons below the text:
+
+System: Show real-time system statistics (CPU usage, RAM usage, etc.).
+
+Credits: Display the content of credits.txt.
+
+Website: A button linking to a predefined website URL (store URL in .env or config).
+
+About: Display the content of about.txt.
+
+Contact/Review:
+
+On click, ask the user (e.g., with another set of buttons or a modal) if they want to discuss "Business" or leave a "Review".
+
+Business: Display a predefined business email address (store in .env or config).
+
+Review: Open a modal asking the user for their review.
+
+Submit the review content, along with the User ID, Username, Server Name, and (if possible) a never-expiring invite link for the server, to a specific Discord channel (ID stored in .env).
+
+cogs/spectre.py - GPT Interaction Cog
+Functionality:
+
+/spectre Command:
+
+Implement a slash command /spectre.
+
+On invocation, first display the content of spectre.txt.
+
+Then, display three buttons: Drifter, Seeker, Abysswalker. These represent user tiers (Free, Premium, VIP).
+
+Tier Selection (Drifter/Seeker):
+
+When Drifter or Seeker is clicked:
+
+Display the content of user_instructor.txt.
+
+Show a unique loading indicator: include a progress bar, a loading message, and a percentage, all updating dynamically in real-time.
+
+Background Task (during loading):
+
+Open a new GPT instance using the gpt4f library.
+
+Send the content of gpt_instructor.txt as the initial prompt to this GPT instance.
+
+Ignore the immediate reply from GPT.
+
+Complete the loading animation for the user after sending the initial prompt.
+
+After loading finishes, display a button Embrace below user_instructor.txt.
+
+Abysswalker Tier: (Clarification needed: The prompt only details Drifter/Seeker. What happens when Abysswalker is clicked? Assume similar flow for now, but specify differences if any).
+
+Embrace Button:
+
+Opens a modal for the user to input their request/reply.
+
+Data Gathering: Fetch detailed information about the current server:
+
+User's tier (Drifter/Seeker/Abysswalker).
+
+Channels: Names, IDs, types, settings, permissions.
+
+Roles: Names, IDs, permissions, colors, positions.
+
+Categories: Parent categories for channels.
+
+Any other fetchable server structure details.
+
+GPT Interaction: Send the following to the same GPT instance initiated earlier:
+
+The user's reply from the modal.
+
+The gathered server structure information.
+
+Display GPT's reply to the user in a Discord code block.
+
+Show three buttons below the GPT reply: Retreat, Submit, Whisper.
+
+Display the remaining replies allowed for the user in this conversation based on their tier.
+
+Interaction Buttons (Retreat, Submit, Whisper):
+
+Retreat: Cancel the current GPT interaction/conversation.
+
+Whisper:
+
+Open a new modal for the user to input a follow-up message.
+
+Send this message to the same GPT instance.
+
+Update the original code block message with the new GPT reply.
+
+Keep the Retreat, Submit, Whisper buttons.
+
+Decrement the user's remaining reply count. End interaction if count reaches zero.
+
+Submit:
+
+Show two new buttons: Temporary and Forever.
+
+Temporary:
+
+Send the content of temp.txt to the same GPT instance.
+
+Store GPT's reply in temp/<user_id>.txt (overwrite if exists).
+
+Inform the user: "Please wait, the file is being processed. This may take some while (wait up to 120 seconds). Use /vault and then the 'Temp' button. If the file isn't there after the time, try again or report the issue."
+
+Forever:
+
+Send the content of forever.txt to the same GPT instance.
+
+Save GPT's reply to saves/<user_id>/<uid>.txt (where <uid> is a unique identifier for this save).
+
+Refinement Step: Open a new, separate GPT instance.
+
+Send forever1.txt as the first prompt.
+
+Send the content of the just saved saves/<user_id>/<uid>.txt.
+
+Update saves/<user_id>/<uid>.txt with the reply from this second GPT instance.
+
+Metadata: Prompt the user in chat to provide a File Name and Description for this save.
+
+Create/update a JSON file saves/<user_id>/<uid>.json containing:
+
+uid: The unique identifier.
+
+creator_name: User's Discord name/ID.
+
+file_name: Provided by the user.
+
+description: Provided by the user.
+
+date_of_creation: Timestamp.
+
+saves: Counter (for market saves, default to 0 or 1?).
+
+stars: Counter (for market awards, default to 0).
+
+Inform the user: "Please wait, the file is being processed. This may take some while (wait up to 300 seconds). Use /vault and then check 'Files'. If the file isn't there after the time, try again or report the issue."
+
+Decrement the user's remaining file save count. Prevent saving if the limit is reached.
+
+Tier Limits:
+
+Replies per Conversation: Drifter (3), Seeker (5), Abysswalker (7). Track and enforce this.
+
+Max Saved Files (Forever): Drifter (5), Seeker (12), Abysswalker (30). Track and enforce this (excluding the single temp file). 
+
+moreover for /spectre command the cooldown is as this Drifter(10 minutes after 3 usage in 5 minutes) , Seeker(2  minute cooldown no matter what ) , abysswalker(no cooldown no matter what)
+cogs/manager.py - File & Market Management Cog
+Functionality:
+
+/vault Command:
+
+Implement a slash command /vault.
+
+Display User's Saved Files:
+
+List files from the saves/<user_id>/ directory. For each file, read the corresponding .json metadata and display the uid and file_name.
+
+Display Market Saved Files:
+
+Read the list of uids from market/<user_id>/saved.json.
+
+For each uid, fetch its metadata (creator name, file name, description, saves, stars) from a central market database (see point 4).
+
+Display this list separately.
+
+Award Button:
+
+Allow the user to select a file from the market list they have saved.
+
+Implement functionality to "award" (give a star) to that file. This should increment the stars count for that uid in the central market database.
+
+Temp File Button: (Implied by spectre.py message) Add a button or option to view/access the content of temp/<user_id>.txt.
+
+/the_exchange Command:
+
+Implement a slash command /the_exchange.
+
+Show two buttons: My Relics and The Bazaar.
+
+My Relics:
+
+List the files the user owns (from saves/<user_id>/) that are currently listed on the market.
+
+Show stats for each listed file (fetched from the market database: saves, stars).
+
+Provide options to:
+
+List: Choose an unlisted file from saves/<user_id>/ and add it to the market database.
+
+Unlist: Choose a listed file and remove it from the market database.
+
+The Bazaar:
+
+Display all files currently listed in the market database.
+
+Provide options to sort the files by: File Name, Saves, Stars.
+
+Allow searching for files by keywords in File Name or Description.
+
+/indulge <uid> Command:
+
+Implement a slash command /indulge that takes a uid as an argument.
+
+Fetch the metadata for the specified uid from the market database.
+
+Display the file's stats (creator name, description, saves, stars, etc.).
+
+Provide a "Save" button.
+
+If "Save" is clicked, add the uid to the user's market/<user_id>/saved.json list (prevent duplicates). Increment the saves count for that uid in the central market database.
+
+Local Market Database:
+
+Maintain a persistent local database (e.g., SQLite file) to store information about all files listed on the market (The Bazaar).
+
+Schema should include: uid, owner_id, file_name, description, date_listed, saves_count, stars_count, etc.
+
+Update this database whenever files are listed, unlisted, saved (/indulge), or awarded (/vault).
+
+cogs/executor.py - Command Execution Cog
+Functionality:
+
+Command Structure:
+
+Define a structure for commands within the saved text files (e.g., saves/<user_id>/<uid>.txt, temp/<user_id>.txt). Commands are separated by semicolons (;).
+
+Example command format: command_name <arg1> <arg2> ... (e.g., channel create my-channel -text)
+
+Support a special NOTICE:"<message>"; command to display a message directly to the user during execution.
+
+Command Logic Storage:
+
+Store the Python logic for executing each command type in separate .py files within a commands/ directory.
+
+Organize commands/ into two subdirectories:
+
+commands/free/: Logic for commands available to all users.
+
+commands/premium/: Logic for commands available only to Seeker and Abysswalker tiers (Premium/VIP). Users in these tiers can also execute commands from commands/free/.
+
+/commit Command:
+
+Implement a slash command /commit. (Clarification needed: How does the user specify which file to commit? Assume it relates to the file generated/selected in /spectre or chosen from /vault).
+
+When invoked for a specific text file (<target_file>.txt):
+
+Parse the commands separated by semicolons within the file.
+
+Execution & Tier Check: For each command:
+
+Check the user's tier.
+
+Determine if the command exists in commands/premium/ or commands/free/.
+
+If the command requires premium and the user is free (Drifter), skip/report error for that command.
+
+Execute the corresponding Python logic from the appropriate file in commands/.
+
+Dynamic Progress/Status: During execution, display a unique, dynamically updating loader/progress bar. Use symbols or ASCII art to indicate the success (✅) or failure (❌) of each individual command as it's processed. Show NOTICE messages as they appear.
+
+After execution finishes, report the overall status.
+
+Display an Undo button.
+
+Undo Button:
+
+When clicked:
+
+Initiate a new GPT instance.
+
+Send the content of undo.txt as the first prompt.
+
+Ignore the immediate GPT reply.
+
+Send the content of the original <target_file>.txt (the one that was just executed) to the same GPT instance.
+
+Wait for GPT's reply, which should contain the "undone" version of the commands.
+
+Display a Commit button to the user again.
+
+If the new Commit button is pressed:
+
+Replace the content of <target_file>.txt with the new commands received from GPT.
+
+Execute the commands from the updated <target_file>.txt following the same logic as the original /commit.
+
+(Consider deleting the old file version or providing further history/rollback options if needed).++

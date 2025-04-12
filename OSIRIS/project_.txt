@@ -1,0 +1,68 @@
+give full fledged code and ask if any doubt... moreover during loading it to show random lines or thoughts in the bottom of message which (lines) to be loaded from a random.txt.... moreover it to delete its previous message everytime it sends a new message
+MAIN.py
+it should be logging in with the creds stored in the env file
+then it should load all the cogs stored in the cogs folder
+and it should also have a /cog only available for the owner id stored in the env
+the /cog should have a dropdown with many options such as dynamic reload for cogs due for load, unload and reload for all or for specific, and also a cog list.
+
+moreover when its pinged(the bot is tagged)
+it should print the content of bot.txt
+below which it have few buttons namely
+system :it show the stats of system realtime....
+another button to be as the credits it to show the content of the credits.txt
+another to be a button to lead to website
+another to be the button  named , about it: it to print about.txt
+another button to be contact/review when clicked it to ask whethere the user wanna talk about buisness or for review..
+buisness to show the email adress... while review to ask for review in a modal and send that to a specific channel id stored in the env file... along with the review,user id , user name , and the server name and if possible the sever's never expire invite link..
+
+
+
+give full fledged code and ask if any doubt... moreover during loading it to show random lines or thoughts in the bottom of message which (lines) to be loaded from a random.txt.... moreover it to delete its previous message everytime it sends a new message
+
+now i also want a spectre.py in the cogs folder
+it should have a /spectre command 
+upon /spectre the bot to first print the content of spectre.txt
+below which the bot to show few buttons namelely Drifter , seeker , and Abysswalker.
+these three represents my bot's tier according to which it divides users into free, premium and vip.'
+when the drifter button is clicked or the seeker the bot to show the user the content of user_instrcutor.txt and and alongside  show a unqiue one of a kind loading system with a progress bar and a loading message and a loading percentage and with dynamic realtime update of the loading percentage and the loading message
+in the background for which the loading is being shown the bot to open a new gpt instance with gpt4f python library , the bot to first send the gpt the content of gpt_instructor.txt and when gpt replies the bot to ignore it and complete the loading for User
+then the user to get a button below the earlier shown user_instructions.txt  the button to be embrace it to open  a new modal in which the user's reply should be collected and sent to gpt along with the user's request the bot to also fetch and send the gpt the structure of the serve being the user's tier and'
+server's channels their names , their ids and their types ,their settings , their permissions and their roles and their permissions , their color , their position and their parent category if any ,  and other stuff which ever is possible to fetch and send to gpt...'
+then the gpt's reply is to be shown to the user in the chat in a new code block'
+'below which to be few buttons namely Retreat , Submit , Whisper.'
+Retreat to cancel the process , whisper to open a new modal for user and send it to gpt again and then update the same codeblock with new reply with same buttons.
+submit to allow show two new buttons temporary and forever
+if the temporrary is pressed then the bot to send the gpt the content of temp.txt  amd the gpt's reply to be stored in temp/user_id.txt (replace the older file if any ) and say please wait the file is being processed , this may take some while wait upto 120 seconds , use /vault and then the "temp" button if the file isnt there try again or report the issue.
+if the forever is pressed then the bot to send the gpt the content of forever.txt and the gpt's reply to be saved in saves/user_id/uid.txt , then a new gpt isntance to be opened to which first forever1.txt to be sent then the uid.txt then the gpt's reply to be stored in saves/user_id/uid.txt basically to be updated...
+after  this the bot to also ask the user for file name and description in the chat , for every saves/user_id/uid.txt there to also be a uid.json in which there to be uid , creator name , file name , date of creation , saves , stars, description , for each file
+after this the bot to say please wait the file is being processed , this may take some while wait upto  300 seconds , use /vault and then check files  if the file isnt there try again or report the issue.
+the free/vip/premium  aka the drifter/seeker/abysswalker have to have max of 3/5/7 replies per conversation and the bot to show the user how many replies are left in the chat .
+moreover they have a maximum of 5/12/30 files saves (excluding the temp file)
+
+
+
+now the manager.py 
+give full fledged code and ask if any doubt... moreover during loading it to show random lines or thoughts in the bottom of message which (lines) to be loaded from a random.txt.... moreover it to delete its previous message everytime it sends a new message
+
+it to have a /vault it to show all the files the user has saved in the saves/user_id/ folder  as a proper list where it to show both uid and file anme (from json),
+there to be a seprate list of files from market/user_id/saved.json here the json has the uid of the files the user has saved it to fetch their meta data from a database instead ...
+there to also be a award button allowing user to award a specific file in the market list (give  a file a star in the database and update accordingly)
+ apart from these there to be a /THE_EXCHANGE  where the bot to first show two buttons namely MY RELICS AND THE bazaar
+the my relics to show the user the diff files he has  listed along wiht the diff stats of the files and  allow them to unlist or list them to market
+the bazaar to allow users to sort all files for their names or for saves or for Stars listed in the market and to allow them to search them for specific keywords in description or file name
+ and users can save any by first using /indulge  for they to enter the needed uid for the which the bot to again show the stats like creator name or desc.....
+and then save the file's uid the market/user_id/saved.json
+'for every file uploaded or removed or other stuff related to market the bot to maintain a database locally '
+with uid and stuff for the files that are uploaded or listed to the market place...
+
+
+
+now for executor.pygive full fledged code and ask if any doubt... moreover during loading it to show random lines or thoughts in the bottom of message which (lines) to be loaded from a random.txt.... moreover it to delete its previous message everytime it sends a new message
+it to have a /commit command  , it to have a commands/ folder where there to be diff py files containing diff logics of commands
+say like the txt file for which the commit button is pressed has a set of commands  one of them being channel create -text  ........ so on it to execute it from the logic stored in the commands/ folder
+now the executor has to main folders in the commands/ namely premium/ and free/ premium users can get all the commands executed stored in both folders while free can only get the commands stored in free/ folder executed..
+after execution the bot to say so in the chat with a unique state of the art loader or progress bar in which it to usve symbols or ascii art like one to mean sucess and one to mean fail for a command exectuion all dynamically...
+the commands stored in the txt file are with seperated with a semi colon for one command....
+moreover if there is a NOTICE:"nubyubgyuvvv"; then this thing is supposed to be a message shown to the user in the chat..
+after execution the bot to show few buttons namely undo , it to send a undo.txt to a new gpt instance and then wait and ignore the reply and then send the txt file which was executed and for which the user had  pressed undo...
+then the bot to show a button named commit to user again... and then execute the new recived code from gpt and delete old file...

@@ -1,0 +1,24 @@
+# About BISHOP
+
+BISHOP is an advanced Discord bot that combines AI capabilities with powerful server management tools.
+
+## Features
+
+### AI Interaction
+Use `/spectre` to interact with a powerful AI assistant that can help with various tasks, from creative writing to problem-solving.
+
+### Content Management
+Save and organize your AI-generated content with `/vault` for easy access later.
+
+### Community Marketplace
+Share your creations with others and discover content from the community with `/the_exchange`.
+
+### Command Execution
+Execute saved commands with `/commit` to automate Discord server management tasks.
+
+## Tiers
+- **Drifter** (Free): Basic access with limited usage
+- **Seeker** (Premium): Enhanced capabilities with more generous limits
+- **Abysswalker** (VIP): Maximum capabilities with minimal restrictions
+
+For more information, contact the bot owner using the Contact button.

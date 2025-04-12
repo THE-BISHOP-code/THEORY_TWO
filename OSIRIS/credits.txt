@@ -1,0 +1,14 @@
+# Credits
+
+**BISHOP Bot** was created by Reign Spectre.
+
+## Technologies Used
+- Discord.py - For Discord API integration
+- GPT-4 - For AI capabilities
+- SQLite - For database management
+
+## Special Thanks
+- To all users who provide feedback and help improve the bot
+- The Discord.py community for their excellent documentation and support
+
+© 2025 Reign Spectre. All rights reserved.

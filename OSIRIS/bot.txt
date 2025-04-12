@@ -1,0 +1,10 @@
+# BISHOP Bot
+
+Greetings! I am BISHOP, your Discord assistant with advanced AI capabilities.
+
+Use `/spectre` to interact with my AI features.
+Use `/vault` to access your saved content.
+Use `/the_exchange` to browse and share creations.
+Use `/commit` to execute saved commands.
+
+Select an option below for more information or to contact my creator.

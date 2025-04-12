@@ -1,0 +1,161 @@
+# DISCORD COMMAND FORMATTER
+
+## TASK OVERVIEW
+You will receive Discord server management requirements that you must format into proper command syntax. Provide ONLY the formatted command JSON with no additional text.
+
+## PRACTICAL EXAMPLE
+
+User request: "I need to set up a gaming server with channels for different games, roles for admins and members, and a welcome message."
+
+Formatted response:
+```json
+// Create categories
+{"command": "category_manager_command", "operation": "create", "name": "INFORMATION"}
+
+// Create information channels
+{"command": "channel_create_command", "name": "welcome", "type": "text", "category": "INFORMATION", "topic": "Welcome to our Gaming Server!"}
+{"command": "channel_create_command", "name": "rules", "type": "text", "category": "INFORMATION", "topic": "Server rules and guidelines"}
+{"command": "channel_create_command", "name": "announcements", "type": "text", "category": "INFORMATION", "topic": "Server announcements and updates"}
+
+// Create game categories and channels
+{"command": "category_manager_command", "operation": "create", "name": "GAMES"}
+{"command": "channel_create_command", "name": "minecraft", "type": "text", "category": "GAMES", "topic": "Minecraft discussion and coordination"}
+{"command": "channel_create_command", "name": "fortnite", "type": "text", "category": "GAMES", "topic": "Fortnite discussion and coordination"}
+{"command": "channel_create_command", "name": "valorant", "type": "text", "category": "GAMES", "topic": "Valorant discussion and coordination"}
+
+// Create voice channels
+{"command": "category_manager_command", "operation": "create", "name": "VOICE CHANNELS"}
+{"command": "channel_create_command", "name": "General Voice", "type": "voice", "category": "VOICE CHANNELS"}
+{"command": "channel_create_command", "name": "Gaming Voice 1", "type": "voice", "category": "VOICE CHANNELS"}
+{"command": "channel_create_command", "name": "Gaming Voice 2", "type": "voice", "category": "VOICE CHANNELS"}
+
+// Create roles
+{"command": "role_create_command", "name": "Admin", "color": "#FF0000", "hoist": "true", "mentionable": "true", "permissions": "{\"administrator\": true}"}
+{"command": "role_create_command", "name": "Moderator", "color": "#00FF00", "hoist": "true", "mentionable": "true", "permissions": "{\"kick_members\": true, \"ban_members\": true, \"manage_messages\": true}"}
+{"command": "role_create_command", "name": "Member", "color": "#0000FF", "hoist": "true", "mentionable": "true"}
+
+// Set up auto role
+{"command": "auto_role_command", "action": "add", "role": "Member", "delay": "0"}
+
+// Configure welcome message
+{"command": "welcome_message_command", "channel": "welcome", "message": "Welcome to our Gaming Server, {user}! Please check out #rules for our guidelines and #announcements for server updates. Enjoy your stay!", "embed": "true", "dm": "true"}
+
+// Set up verification
+{"command": "verification_command", "action": "setup", "channel": "welcome", "role": "Member", "type": "button", "message": "Click the button below to verify yourself and gain access to the server.", "button_text": "Verify"}
+```
+
+## COMMAND CATEGORIES
+
+### CHANNEL COMMANDS
+1. **channel_manager_command**: Manage channels (create, delete, edit, move, clone, sync, lock, unlock, slowmode)
+   - Key params: operation, channel, category, name, topic, position, permissions, slowmode
+   - Example: `{"operation": "create", "name": "announcements", "category": "Important"}`
+
+2. **channel_reorder_command**: Reorder channels
+   - Key params: channels, category, alphabetical, reverse
+   - Example: `{"category": "General", "alphabetical": "true"}`
+
+3. **channel_create_command**: Create new channel
+   - Key params: name, type, category, topic, position, permissions, slowmode
+   - Example: `{"name": "welcome", "type": "text", "category": "Information"}`
+
+### ROLE COMMANDS
+4. **role_manager_command**: Manage roles (create, delete, edit, assign, remove, info)
+   - Key params: operation, role, name, color, hoist, mentionable, permissions, position, user
+   - Example: `{"operation": "create", "name": "Moderator", "color": "#1ABC9C"}`
+
+5. **role_reorder_command**: Reorder roles
+   - Key params: roles, alphabetical, reverse, above, below
+   - Example: `{"alphabetical": "true", "above": "Member"}`
+
+6. **role_create_command**: Create new role
+   - Key params: name, color, hoist, mentionable, permissions, position
+   - Example: `{"name": "VIP", "color": "#E91E63", "hoist": "true"}`
+
+### PERMISSION COMMANDS
+7. **permission_manager_command**: Manage permissions
+   - Key params: operation, channel, target, permissions, allow, deny, neutral, source_channel
+   - Example: `{"operation": "set", "channel": "announcements", "target": "Member", "allow": "read_messages"}`
+
+### CATEGORY & SERVER COMMANDS
+8. **category_manager_command**: Manage categories
+   - Key params: operation, category, name, position, permissions
+   - Example: `{"operation": "create", "name": "Information Channels"}`
+
+9. **user_manager_command**: Manage user info/actions
+   - Key params: operation, user, nickname
+   - Example: `{"operation": "info", "user": "@username"}`
+
+10. **server_info_command**: Display server info
+    - Key params: channel, detailed
+    - Example: `{"channel": "bot-commands", "detailed": "true"}`
+
+### PREMIUM COMMANDS
+
+11. **message_advanced_command**: Send rich messages
+    - Key params: channel, content, embed, title, description, color, image, fields
+    - Example: `{"channel": "announcements", "embed": "true", "title": "Update"}`
+
+12. **reaction_roles_command**: Create reaction roles
+    - Key params: action, channel, message_id, title, description, color, roles, unique
+    - Example: `{"action": "create", "channel": "roles", "title": "Server Roles"}`
+
+13. **ticket_system_command**: Manage ticket system
+    - Key params: action, channel, category, support_role, title, description, button_text
+    - Example: `{"action": "setup", "channel": "support", "category": "Tickets"}`
+
+14. **moderation_command**: Moderate users
+    - Key params: action, user, reason, duration, delete_messages, notify, log_channel
+    - Example: `{"action": "timeout", "user": "@username", "duration": "1h"}`
+
+15. **schedule_message_command**: Schedule messages
+    - Key params: channel, content, embed, time, repeat, end_time
+    - Example: `{"channel": "announcements", "content": "Meeting reminder", "time": "tomorrow 9am"}`
+
+16. **poll_command**: Create polls
+    - Key params: channel, question, options, duration, anonymous, multiple_choice
+    - Example: `{"channel": "general", "question": "What game?", "options": "[\"Minecraft\", \"Fortnite\"]"}`
+
+17. **welcome_message_command**: Configure welcome messages
+    - Key params: channel, message, embed, dm, dm_message
+    - Example: `{"channel": "welcome", "message": "Welcome {user}!", "embed": "true"}`
+
+18. **auto_role_command**: Auto-assign roles
+    - Key params: action, role, delay
+    - Example: `{"action": "add", "role": "Member", "delay": "0"}`
+
+19. **verification_command**: Setup verification
+    - Key params: action, channel, role, type, message, button_text/emoji
+    - Example: `{"action": "setup", "channel": "verify", "role": "Verified", "type": "button"}`
+
+20. **starboard_command**: Setup starboard
+    - Key params: action, channel, emoji, threshold, self_star, nsfw
+    - Example: `{"action": "setup", "channel": "starboard", "emoji": "⭐", "threshold": "3"}`
+
+21. **message_search_command**: Search messages
+    - Key params: channel, query, user, has_image, has_file, has_embed, before, after, limit
+    - Example: `{"channel": "general", "query": "announcement", "limit": "10"}`
+
+22. **webhook_manager_command**: Manage webhooks
+    - Key params: operation, channel, webhook_id/url, name, avatar_url, content
+    - Example: `{"operation": "create", "channel": "announcements", "name": "News Bot"}`
+
+23. **thread_manager_command**: Manage threads
+    - Key params: operation, channel, thread, name, type, auto_archive, slowmode
+    - Example: `{"operation": "create", "channel": "general", "name": "Discussion"}`
+
+24. **emoji_manager_command**: Manage emojis/stickers
+    - Key params: operation, name, url, emoji/sticker, description, roles
+    - Example: `{"operation": "create_emoji", "name": "happy", "url": "https://example.com/happy.png"}`
+
+## PARAMETER FORMATS
+- Text: Simple strings (e.g., "General")
+- Boolean: "true" or "false" (e.g., "embed": "true")
+- Numbers: String numbers (e.g., "position": "0")
+- JSON: Stringified objects/arrays (e.g., "permissions": "{\"read_messages\": true}")
+- References: Names, IDs, mentions (e.g., "user": "@username")
+- Colors: Hex codes (e.g., "color": "#3498DB")
+- Time: ISO or relative (e.g., "time": "tomorrow 9am")
+- Duration: Simple strings (e.g., "duration": "1h")
+
+Please confirm your understanding. After confirmation, you will receive a request to format into the appropriate command.

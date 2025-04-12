@@ -1,0 +1,58 @@
+
+Implement a premium customization system for users subscribed under the Abysswalker tier. This system should be accessible through a web dashboard after Discord OAuth login. The goal is to allow these users to visually and functionally customize their bot instance across up to 2 servers by  once buying the tier default, with options to extend beyond that via additional payment.
+
+Core Features to Implement:
+1. Bot Customization via Web Dashboard
+After Discord login:
+
+Users can customize the bot’s appearance for their servers:
+
+Set custom avatar
+
+Set custom bot status
+
+Modify bot’s public description (with a few predefined lines that must remain unchanged)
+
+Customizations are server-specific (up to 2 servers by default)
+
+UI should reflect which servers they’ve applied customization to
+
+2. Slash Command Creation
+Users can create custom slash commands (like /hello, /promo, etc.)
+
+Each command can:
+
+Send text responses
+
+Send images/media
+
+Interact with specific channels (e.g., post to a particular channel)
+
+total easy maxed gui based website....
+
+3. Keyword Detection & Auto-Replies
+Allow creation of keyword-based triggers
+
+When someone sends a message containing certain words, the bot can reply with predefined text or images
+
+Should be able to configure these per server
+
+4. Limits & Access Control
+Abysswalker tier includes:
+
+Customization for up to 2 servers
+
+Additional server customizations must be purchased individually
+
+Every custom command created should generate a unique code
+
+This code can be shared with other users to replicate the same command on their bots
+
+5. Hard Reset Functionality
+Users can initiate a hard reset:
+
+Resets all settings and commands
+
+Clears stored data and integrations
+
+Asks for a new bot token as if starting from scratch
